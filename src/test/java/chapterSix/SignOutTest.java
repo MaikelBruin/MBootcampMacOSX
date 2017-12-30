@@ -14,16 +14,8 @@ public class SignOutTest extends TestShopScenario {
 
     {
         //Actions
-        driver.findElement(By.className("login")).click();
-        driver.findElement(By.id("email")).sendKeys(email);
-        driver.findElement(By.id("passwd")).sendKeys(pwd);
-        driver.findElement(By.id("SubmitLogin")).click();
-        String actualLoginMessage = driver.findElement(By.className("info-account")).getText();
-        String actualName = driver.findElement(By.className("account")).getText().toUpperCase();
+        userLogin();
 
-        //Assertions
-        Assertions.assertThat(actualLoginMessage)
-                .as("Login message is niet zoals verwacht!").contains(expectedLoginMessage);
 
         //Actie Loguit
         driver.findElement(By.className("logout")).click();
@@ -34,4 +26,6 @@ public class SignOutTest extends TestShopScenario {
                 .as("Gebruiker is niet uitgelogd!").contains(expectedSignInText.toUpperCase());
 
     }
+
+
 }
