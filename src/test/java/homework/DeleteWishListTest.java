@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,15 @@ public class DeleteWishListTest extends TestShopScenario {
     public void deleteTableRowTest() {
 
         //Login (create method from this)
-        driver.findElement(By.className("login")).click();
-        driver.findElement(By.id("email")).sendKeys(emailForAssignment);
-        driver.findElement(By.id("passwd")).sendKeys(pwdForAssignment);
-        driver.findElement(By.id("SubmitLogin")).click();
+//        driver.findElement(By.className("login")).click();
+//        driver.findElement(By.id("email")).sendKeys(emailForAssignment);
+//        driver.findElement(By.id("passwd")).sendKeys(pwdForAssignment);
+//        driver.findElement(By.id("SubmitLogin")).click();
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.doLogin(emailForAssignment, pwdForAssignment);
+
 
         //Go to wishList
         driver.findElement(By.className("lnk_wishlist")).click();
@@ -91,13 +97,12 @@ public class DeleteWishListTest extends TestShopScenario {
                         Alert alert = driver.switchTo().alert();
                         driver.switchTo().alert().accept();
 //                        driver.switchTo().alert().dismiss();
-//                        driver.switchTo().parentFrame();
                     }
                 }
             }
         }
 
-//        //Wait until page is back and navigate to my account page (workaround for stale element error)
+        //Wait until page is back and navigate to my account page (workaround for stale element error)
         WebElement accountButton = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions
                         .visibilityOfElementLocated(By.className("account")));
