@@ -5,7 +5,9 @@ import org.assertj.core.api.Assertions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -13,29 +15,43 @@ import java.util.List;
 
 public class DeleteWishListTest extends TestShopScenario {
 
-    String email2 = "maikel@bruin.com";
-    String pwd2 = "1qazxsw2";
+    String emailForAssignment = "maikel@bruin.com";
+    String pwdForAssignment = "1qazxsw2";
+    String wishListName = "Feel the pain";
 
     @Test
     public void deleteTableRowTest() {
 
         //Login (create method from this)
         driver.findElement(By.className("login")).click();
-        driver.findElement(By.id("email")).sendKeys(email2);
-        driver.findElement(By.id("passwd")).sendKeys(pwd2);
+        driver.findElement(By.id("email")).sendKeys(emailForAssignment);
+        driver.findElement(By.id("passwd")).sendKeys(pwdForAssignment);
         driver.findElement(By.id("SubmitLogin")).click();
 
         //Go to wishList
         driver.findElement(By.className("lnk_wishlist")).click();
 
+        //Add "Feel the pain" wishlist (if it is already there then no duplicates are created without any error message
+        driver.findElement(By.id("name")).sendKeys(wishListName);
+        driver.findElement(By.id("submitWishlist")).click();
+
         //Define table
         WebElement table = driver.findElement(By.tagName("tbody"));
+
+        //Webelement
+        WebElement reference = driver.findElement(By.id("mywishlist"));
 
         //Create list of rows
         List<WebElement> rowList = driver.findElements(By.cssSelector("tbody tr"));
 
-        //Print # of rows
-        System.out.println("Number of rows: " + rowList.size());
+        //Assert that specific wishlist is added to table
+        List<String> rowTextList = new ArrayList<>();
+        for (WebElement row : rowList) {
+            rowTextList.add(row.getText());
+        }
+
+        Assertions.assertThat(rowTextList.toString()).as("'Feel the pain' wish list not added!")
+                .contains(wishListName);
 
 
         //Iterate over the rowList to get all the columns and print the text so that the entire tabel is printed
@@ -44,10 +60,11 @@ public class DeleteWishListTest extends TestShopScenario {
 
             //Store text of rows in variable
             String rowText = rowList.get(row).getText();
-            System.out.println(rowText);
+            //System.out.println(rowText);
 
             //Find the correct row containing "Feel the pain"
-            if (rowText.contains("Feel the pain")) {
+            if (rowText.contains(wishListName)) {
+                System.out.println(wishListName + " row present in table, now deleting...");
 
                 //Iterate over all the columns for this row
                 for(int column=0;column<columnsList.size();column++) {
@@ -73,14 +90,37 @@ public class DeleteWishListTest extends TestShopScenario {
                         //Click OK on pop-up window
                         Alert alert = driver.switchTo().alert();
                         driver.switchTo().alert().accept();
+//                        driver.switchTo().alert().dismiss();
+//                        driver.switchTo().parentFrame();
                     }
                 }
             }
-
-            //Validate that "Feel the pain" row is not present
-            Assertions.assertThat(rowText).as("Feel the pain wishlist still present")
-                    .doesNotContain("Feel the pain");
         }
+
+//        //Wait until page is back and navigate to my account page (workaround for stale element error)
+        WebElement accountButton = new WebDriverWait(driver, 10)
+                .until(ExpectedConditions
+                        .visibilityOfElementLocated(By.className("account")));
+
+        accountButton.click();
+
+        //Go to wishList
+        driver.findElement(By.className("lnk_wishlist")).click();
+
+
+        //Validate that "Feel the pain" row is not present anymore in remaining table on the page
+        List<WebElement> newRowList = driver.findElements(By.cssSelector("tbody tr"));
+        List<String> newRowTextList = new ArrayList<>();
+
+        for (WebElement newRow : newRowList) {
+            newRowTextList.add(newRow.getText());
+            System.out.println(newRow.getText());
+        }
+
+        Assertions.assertThat(newRowTextList.toString()).as("Feel the pain wish list still present")
+                .doesNotContain(wishListName);
+
+
     }
 }
 
