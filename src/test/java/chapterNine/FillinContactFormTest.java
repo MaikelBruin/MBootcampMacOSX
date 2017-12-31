@@ -8,11 +8,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
+import pages.LoginPage;
 
 public class FillinContactFormTest extends TestShopScenario{
 
     @Test
     public void FillinContactForm() {
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        if (loginPage.isLoggedOut() == false) {
+            loginPage.doLogout();
+        }
 
         //Navigate to correct page
         driver.findElement(By.cssSelector("a[title='contact']")).click();
