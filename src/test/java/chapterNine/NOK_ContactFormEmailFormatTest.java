@@ -3,12 +3,13 @@ package chapterNine;
 import chapterSix.TestShopScenario;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-public class NOK_FillInContactFormTest extends TestShopScenario {
+public class NOK_ContactFormEmailFormatTest extends TestShopScenario {
 
     String email = "nope";
     String orderReference = "4321234";
@@ -17,7 +18,7 @@ public class NOK_FillInContactFormTest extends TestShopScenario {
     String expectedErrorMessage = "Invalid email address.";
 
     @Test
-    public void ContactFormNOKTest() {
+    public void ContactFormEmailNOKTest() {
         LoginPage loginPage = new LoginPage(driver);
 
         if (loginPage.isLoggedOut() == false) {
@@ -31,13 +32,12 @@ public class NOK_FillInContactFormTest extends TestShopScenario {
         //Make instance of contactUsPage class
         ContactUsPage contactUsPage = new ContactUsPage(driver);
 
-        //Call submitForm method and pass arguments
-        contactUsPage.submitForm(email, orderReference, message, contactID);
+        //Call isEmailInCorrect method
+        boolean emailInCorrect = contactUsPage.isEmailInCorrect(email);
 
-        String actualMessage = driver.findElement(By.className("alert-danger")).getText();
+        Assertions.assertThat(emailInCorrect).as("No (correct) error message given!").isTrue();
 
-        Assertions.assertThat(actualMessage).as("submitForm unexpectedly was successful.")
-                .containsIgnoringCase(expectedErrorMessage);
+
 
     }
 }

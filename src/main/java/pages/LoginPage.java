@@ -23,6 +23,18 @@ public class LoginPage {
     @FindBy(id = "SubmitLogin")
     WebElement submitButton;
 
+    @FindBy(className = "alert")
+    WebElement errorMessage;
+
+    @FindBy(className = "form-error")
+    WebElement formErrorMessage;
+
+    @FindBy(css = "div[class*=form-error]>[type=email]")
+    WebElement wrongEmailFormat;
+
+    @FindBy(css = "div[class*=form-error]>[type=password]")
+    WebElement wrongPwdFormat;
+
 
     //Constructor method
     public LoginPage(WebDriver driver) {
@@ -42,7 +54,27 @@ public class LoginPage {
         emailField.sendKeys(email);
         pwdField.sendKeys(pwd);
         submitButton.click();
+    }
 
+    public String doNOKLogin(String email, String pwd) {
+        loginButton.click();
+        emailField.sendKeys(email);
+        pwdField.sendKeys(pwd);
+        submitButton.click();
+        return errorMessage.getText();
+    }
+
+    public Boolean doNOKEmail(String email) {
+        emailField.sendKeys(email);
+        pwdField.click();
+        return wrongEmailFormat.isDisplayed();
+    }
+
+    public Boolean doNOKPwd(String email, String pwd) {
+        emailField.sendKeys(email);
+        pwdField.sendKeys(pwd);
+        emailField.click();
+        return wrongPwdFormat.isDisplayed();
     }
 
     public void doLogout () {
