@@ -1,28 +1,28 @@
 package browser;
 
-import io.github.bonigarcia.wdm.*;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariDriverService;
 
-public class BrowserFactory {
-
+public class BrowserFactoryAdvanced {
     static WebDriver driver;
 
-    public static WebDriver getDriver(String browser) {
+    public enum Browser {
+        CHROME,
+        FIREFOX;
+    }
 
-        switch(browser.toLowerCase()) {
-            case "firefox":
+    public static WebDriver getDriver(Browser browser) {
+
+        switch(browser) {
+            case FIREFOX:
                 driver = getFirefoxDriver();
                 break;
-            case "chrome":
+            case CHROME:
                 getChromeDriver();
                 break;
             default:

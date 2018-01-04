@@ -40,7 +40,7 @@ public class TestShopScenario {
     @BeforeMethod
     public void setUp() {
         driver = BrowserFactory.getDriver("chrome");
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
         driver.get(baseURL);
     }
 
