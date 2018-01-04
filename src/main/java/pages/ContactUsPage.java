@@ -27,13 +27,29 @@ public class ContactUsPage {
     @FindBy(id = "submitMessage")
     private WebElement submitButton;
 
+    @FindBy(className = "form-error")
+    private WebElement emailFormatError;
+
+    @FindBy(className = "alert-danger")
+    private WebElement submitFormError;
+
     //Constructor method
     public ContactUsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    //Submit form method
+//    //Enter email
+    public boolean isEmailInCorrect(String email) {
+        emailField = driver.findElement(By.id("email"));
+        emailField.sendKeys(email);
+        driver.findElement(By.id("id_order")).click();
+        boolean emailInCorrect = driver.findElement(By.className("form-error")).isDisplayed();
+
+        return emailInCorrect;
+    }
+
+    //Submit form method with attachment
     public void submitForm(String email, String orderReference, String message, String contactID, String pathToFile) {
         emailField.sendKeys(email);
         orderReferenceField.sendKeys(orderReference);
@@ -43,12 +59,11 @@ public class ContactUsPage {
         idContactSelectBox.selectByVisibleText(contactID);
 
         fileUploadField.sendKeys(pathToFile);
-
-
         submitButton.click();
 
     }
 
+    //Submit form method without attachment
     public void submitForm(String email, String orderReference, String message, String contactID) {
         emailField.sendKeys(email);
         orderReferenceField.sendKeys(orderReference);

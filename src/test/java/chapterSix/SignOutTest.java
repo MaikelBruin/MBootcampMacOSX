@@ -14,8 +14,6 @@ public class SignOutTest extends TestShopScenario {
 
     {
         //Actions
-        userLogin();
-
 
         //Actie Loguit
         driver.findElement(By.className("logout")).click();
