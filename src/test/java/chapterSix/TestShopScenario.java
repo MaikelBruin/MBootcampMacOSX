@@ -1,6 +1,7 @@
 package chapterSix;
 
 import browser.BrowserFactory;
+import browser.BrowserFactoryAdvanced;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
@@ -39,7 +40,7 @@ public class TestShopScenario {
 
     @BeforeMethod
     public void setUp() {
-        driver = BrowserFactory.getDriver("chrome");
+        driver = BrowserFactoryAdvanced.getDriver(BrowserFactoryAdvanced.Browser.CHROME);
 //        driver.manage().window().maximize();
         driver.get(baseURL);
     }

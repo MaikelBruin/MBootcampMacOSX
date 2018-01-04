@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class BrowserFactoryAdvanced {
+
     static WebDriver driver;
 
     public enum Browser {
@@ -20,7 +21,7 @@ public class BrowserFactoryAdvanced {
 
         switch(browser) {
             case FIREFOX:
-                driver = getFirefoxDriver();
+                getFirefoxDriver();
                 break;
             case CHROME:
                 getChromeDriver();
