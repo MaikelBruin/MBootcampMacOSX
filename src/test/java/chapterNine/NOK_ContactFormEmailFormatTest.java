@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
+import pages.HomePage;
 import pages.LoginPage;
 
 public class NOK_ContactFormEmailFormatTest extends TestShopScenario {
@@ -25,7 +26,8 @@ public class NOK_ContactFormEmailFormatTest extends TestShopScenario {
         }
 
         //Navigate to correct page
-        driver.findElement(By.cssSelector("a[title='contact']")).click();
+        HomePage homePage = new HomePage(driver);
+        homePage.toContactUsPage();
 
         //Make instance of contactUsPage class
         ContactUsPage contactUsPage = new ContactUsPage(driver);

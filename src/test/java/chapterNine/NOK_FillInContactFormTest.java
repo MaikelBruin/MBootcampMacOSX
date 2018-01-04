@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
+import pages.HomePage;
 import pages.LoginPage;
 
 public class NOK_FillInContactFormTest extends TestShopScenario {
@@ -23,19 +24,20 @@ public class NOK_FillInContactFormTest extends TestShopScenario {
             loginPage.doLogout();
         }
 
-            //Navigate to correct page
-            driver.findElement(By.cssSelector("a[title='contact']")).click();
+        //Navigate to correct page
+        HomePage homePage = new HomePage(driver);
+        homePage.toContactUsPage();
 
-            //Make instance of contactUsPage class
-            ContactUsPage contactUsPage = new ContactUsPage(driver);
+        //Make instance of contactUsPage class
+        ContactUsPage contactUsPage = new ContactUsPage(driver);
 
-            //Call submitForm method and pass arguments
-            contactUsPage.submitForm(email, orderReference, message, contactID);
+        //Call submitForm method and pass arguments
+        contactUsPage.submitForm(email, orderReference, message, contactID);
 
-            String actualMessage = driver.findElement(By.className("alert-danger")).getText();
+        String actualMessage = driver.findElement(By.className("alert-danger")).getText();
 
-            Assertions.assertThat(actualMessage).as("submitForm unexpectedly was successful.")
-                    .containsIgnoringCase(expectedErrorMessage);
+        Assertions.assertThat(actualMessage).as("submitForm unexpectedly was successful.")
+                .containsIgnoringCase(expectedErrorMessage);
 
     }
 }

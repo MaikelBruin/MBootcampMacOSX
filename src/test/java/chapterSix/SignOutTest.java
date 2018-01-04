@@ -6,14 +6,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class SignOutTest extends TestShopScenario {
+
+    String email = "maikel.bruin@polteq.com";
+    String pwd = "bootcamp";
 
     @Test
     public void LogOutSuccesFull()
 
     {
         //Actions
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.doLogin(email, pwd);
 
         //Actie Loguit
         driver.findElement(By.className("logout")).click();
