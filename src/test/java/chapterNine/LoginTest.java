@@ -10,6 +10,9 @@ public class LoginTest extends TestShopScenario {
 
     String email = "maikel.bruin@polteq.com";
     String pwd = "bootcamp";
+    String expectedLoginMessage =
+            "Welcome to your account. Here you can manage all of your personal information and orders.";
+
 
     @Test
     public void performLoginTest() {
@@ -27,8 +30,6 @@ public class LoginTest extends TestShopScenario {
         }
 
         String actualLoginMessage = driver.findElement(By.className("info-account")).getText();
-        String expectedLoginMessage =
-                "Welcome to your account. Here you can manage all of your personal information and orders.";
 
 
         //Assertions
