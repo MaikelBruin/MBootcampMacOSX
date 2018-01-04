@@ -32,6 +32,6 @@ public class TestShopScenario {
 
     @AfterMethod
     public void wrapUp() {
-        //driver.quit();
+        driver.quit();
     }
 }

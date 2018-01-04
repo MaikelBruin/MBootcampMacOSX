@@ -10,19 +10,16 @@ import pages.LoginPage;
 public class NOK_LoginTest extends TestShopScenario {
     String email = "maikel.bruin@polteq.com";
     String pwd = "bootcamp";
-    String pwdWrong = "lalalal";
+
 
     @Test
     public void wrongAuthenticationTest() {
-        LoginPage loginPage = new LoginPage(driver);
-        String expectedErrorMessage = "Authentication failed.";
+        LoginPage loginPage = init();
 
-
-        if (loginPage.isLoggedOut() == false) {
-            loginPage.doLogout();
-        }
-
+        //Define variables and expected/actual outcomes
+        String pwdWrong = "lalalal";
         String actualErrorMessage = loginPage.doNOKLogin(email, pwdWrong);
+        String expectedErrorMessage = "Authentication failed.";
 
         //Assertions
         Assertions.assertThat(actualErrorMessage)
@@ -31,15 +28,10 @@ public class NOK_LoginTest extends TestShopScenario {
 
     @Test
     public void wrongEmailFormatTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.toLoginPage();
+        //Init
+        LoginPage loginPage = init();
 
-        LoginPage loginPage = new LoginPage(driver);
-
-        if (loginPage.isLoggedOut() == false) {
-            loginPage.doLogout();
-        }
-
+        //Define variables and expected/actual outcomes
         String emailWrongFormat = "lalala";
 
         Boolean formErrorMessage = loginPage.doNOKEmail(emailWrongFormat);
@@ -51,15 +43,10 @@ public class NOK_LoginTest extends TestShopScenario {
 
     @Test
     public void emptyPasswordTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.toLoginPage();
+        //Init
+        LoginPage loginPage = init();
 
-        LoginPage loginPage = new LoginPage(driver);
-
-        if (loginPage.isLoggedOut() == false) {
-            loginPage.doLogout();
-        }
-
+        //Define variables and expected/actual outcomes
         String expectedErrorMessage = "Password is required.";
         String actualErrorMessage = loginPage.doNOKLogin(email, "");
 
@@ -70,15 +57,10 @@ public class NOK_LoginTest extends TestShopScenario {
 
     @Test
     public void emptyEmailTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.toLoginPage();
+        //Init
+        LoginPage loginPage = init();
 
-        LoginPage loginPage = new LoginPage(driver);
-
-        if (loginPage.isLoggedOut() == false) {
-            loginPage.doLogout();
-        }
-
+        //Define variables and expected/actual outcomes
         String expectedErrorMessage = "An email address required.";
         String actualErrorMessage = loginPage.doNOKLogin("", "");
 
@@ -89,15 +71,10 @@ public class NOK_LoginTest extends TestShopScenario {
 
     @Test
     public void tooShortPwdTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.toLoginPage();
+        //Init
+        LoginPage loginPage = init();
 
-        LoginPage loginPage = new LoginPage(driver);
-
-        if (loginPage.isLoggedOut() == false) {
-            loginPage.doLogout();
-        }
-
+        //Define variables and expected/actual outcomes
         String shortPwd = "1234";
         Boolean formErrorMessage = loginPage.doNOKPwd(email,shortPwd);
 
@@ -106,17 +83,15 @@ public class NOK_LoginTest extends TestShopScenario {
                 .as("Error message niet getoond!").isTrue();
     }
 
-    @Test
-    public void nonExistentUserTest() {
+    private LoginPage init() {
+        //Init
         HomePage homePage = new HomePage(driver);
         homePage.toLoginPage();
-
         LoginPage loginPage = new LoginPage(driver);
 
         if (loginPage.isLoggedOut() == false) {
             loginPage.doLogout();
         }
-
-
+        return loginPage;
     }
 }
