@@ -2,11 +2,15 @@ package browser;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariDriverService;
 
 public class BrowserFactoryAdvanced {
 
@@ -14,6 +18,7 @@ public class BrowserFactoryAdvanced {
 
     public enum Browser {
         CHROME,
+        SAFARI,
         FIREFOX;
     }
 
@@ -25,6 +30,9 @@ public class BrowserFactoryAdvanced {
                 break;
             case CHROME:
                 getChromeDriver();
+                break;
+            case SAFARI:
+                getSafariDriver();
                 break;
             default:
                 getChromeDriver();
@@ -48,5 +56,10 @@ public class BrowserFactoryAdvanced {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         FirefoxDriverManager.getInstance().setup();
         return driver = new FirefoxDriver();
+    }
+
+    private static WebDriver getSafariDriver() {
+        DesiredCapabilities capabilities = DesiredCapabilities.safari();
+        return driver = new SafariDriver();
     }
 }

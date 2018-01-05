@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Suite" parallel="none">
+    <test name="OKTest">
+        <parameter name="email" value="maikel.bruin@polteq.com" />
+        <parameter name="orderReference" value="3333333" />
+        <parameter name="message" value="HoiDoei" />
+        <parameter name="contactID" value="Customer service" />
+        <parameter name="pathToFile" value="/Users/maikel/Documents/bijlageTest.txt" />
+        <classes>
+            <class name="dataDrivenTesting.DataDrivenTest" />
+        </classes>
+    </test>
+    <test name="OKTest">
+        <parameter name="email" value="maikel.bruin@polteq.com" />
+        <parameter name="orderReference" value="3333333" />
+        <parameter name="message" value="HoiDoei" />
+        <parameter name="contactID" value="Customer service" />
+        <parameter name="pathToFile" value="/Users/maikel/Documents/bijlageTest.txt" />
+        <classes>
+            <class name="dataDrivenTesting.DataDrivenTest" />
+        </classes>
+    </test>
+    <test name="OKTest">
+        <parameter name="email" value="maikel.bruin@polteq.com" />
+        <parameter name="orderReference" value="3333333" />
+        <parameter name="message" value="HoiDoei" />
+        <parameter name="contactID" value="Customer service" />
+        <parameter name="pathToFile" value="/Users/maikel/Documents/bijlageTest.txt" />
+        <classes>
+            <class name="dataDrivenTesting.DataDrivenTest" />
+        </classes>
+    </test>
+</suite>
