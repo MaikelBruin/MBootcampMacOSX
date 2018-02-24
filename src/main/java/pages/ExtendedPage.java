@@ -13,10 +13,15 @@ public class ExtendedPage extends BasePage {
 
     //Elements
     @FindBy (css = "[id='special_block_right']>p a")
-    WebElement specialButton;
+    public WebElement specialButton;
 
 
     public void goToSpecials() {
         specialButton.click();
+    }
+
+    public SpecialPage goToSpecialPage() {
+        specialButton.click();
+        return new SpecialPage(driver);
     }
 }
