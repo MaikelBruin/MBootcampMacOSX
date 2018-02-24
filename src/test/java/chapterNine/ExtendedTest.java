@@ -29,4 +29,36 @@ public class ExtendedTest extends TestShopScenario {
         Assertions.assertThat(headerText).as("faal").containsIgnoringCase("Price drop");
 
     }
+
+    @Test
+    public void extendedPageButtonsTest() {
+        //init
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.doLogin(emailForAssignment, pwdForAssignment);
+
+        ExtendedPage extendedPage = new ExtendedPage(driver);
+
+        extendedPage.specialButton.click();
+
+        SpecialPage specialPage = new SpecialPage(driver);
+        String headerText = specialPage.headerText.getText();
+
+        Assertions.assertThat(headerText).as("faal").containsIgnoringCase("Price drop");
+    }
+
+    @Test
+    public void extendedPagePagesTest() {
+        //init
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.doLogin(emailForAssignment, pwdForAssignment);
+
+        ExtendedPage extendedPage = new ExtendedPage(driver);
+
+        SpecialPage specialPage = extendedPage.goToSpecialPage();
+
+        String headerText = specialPage.getHeaderText();
+
+        Assertions.assertThat(headerText).as("faal").containsIgnoringCase("Price drop");
+
+    }
 }
